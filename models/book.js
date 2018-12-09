@@ -4,7 +4,13 @@ var bookSchema = new mongoose.Schema ({
     title: String,
     author: String,
     image: String,
-    review: String
+    description: String,
+    review: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Review"
+        }
+    ]
 });
 
 //MODEL
