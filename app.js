@@ -8,6 +8,7 @@ var LocalStrategy = require('passport-local');
 var Book = require('./models/book');
 var Review = require('./models/review');
 var User = require('./models/user');
+var seedDB = require('./seed');
 
 //APP CONFIG
 mongoose.connect("mongodb://localhost/BooksReviewApp", { useNewUrlParser: true });
@@ -16,6 +17,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(methodOverride("_method"));
+seedDB();
 
 //RESTful ROUTES
 //DEFAULT
@@ -52,10 +54,11 @@ app.post("/books", function(req, res) {
 
 //SHOW
 app.get("/books/:id", function(req, res) {
-    Book.findById(req.params.id, function(err, foundBook) {
+    Book.findById(req.params.id).populate("review").exec(function(err, foundBook) {
         if(err) {
             res.redirect("/books");
         } else {
+            console.log(foundBook);
             res.render("show", {book: foundBook});
         }
     });

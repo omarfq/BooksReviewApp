@@ -52,7 +52,7 @@ function seedDB() {
                                 if(err) {
                                     console.log(err);
                                 } else {
-                                    book.reviews.push(review);
+                                    book.review.push(review);
                                     book.save();
                                     console.log("Created new review!");
                                 }
@@ -64,3 +64,5 @@ function seedDB() {
         });
     });
 }
+
+module.exports = seedDB;
