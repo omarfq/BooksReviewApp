@@ -1,4 +1,4 @@
-<% include ./partials/header %>
+<% include ../partials/header %>
 
 <div class="ui main text container">
     <div class="ui huge header"><%= book.title %></div>
@@ -18,9 +18,12 @@
                         <p><%- book.description %></p>
                     </div>
                     <br>
-                    <a class="ui blue basic button" href="/books/<%= book._id %>/edit">Edit Review</a>
+                    <a class="ui blue basic button" href="/books/<%= book._id %>/edit">Edit Book</a>
                     <form id="delete" action="/books/<%= book._id %>?_method=DELETE" method="POST">
-                        <button class="ui red basic button">Delete Review</button>
+                        <button class="ui red basic button">Delete Book</button>
+                    </form>
+                    <form id="delete" action="/books/<%= book._id %>/reviews/new">
+                        <button class="ui green basic button">Write a Review</button>
                     </form>
                 </div> 
             </div>
@@ -34,4 +37,4 @@
 </div>
 
 
-<% include ./partials/footer %>
+<% include ../partials/footer %>

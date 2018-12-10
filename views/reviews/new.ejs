@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+
+<% if(locals.book) { %>
+    <div class="ui main text container segment">
+    <div class="ui huge header">New Review</div>
+        <form action="/books/<%= book._id %>/reviews" method="POST" class="ui form">
+            <div class="field">
+                <label>Title of Review</label>
+                <input type="text" name="review[title]" placeholder="Title">
+            </div>
+            <div class="field">
+                <label>Your Review</label>
+                <textarea name="review[text]" placeholder="Write your review here"></textarea>
+            </div>
+            <input class="ui button" type="submit">
+        </form>
+</div>
+
+<% } %>
+
+
+<% include ../partials/footer %>

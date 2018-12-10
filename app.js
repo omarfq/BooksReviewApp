@@ -31,14 +31,14 @@ app.get("/books", function(req, res) {
         if(err) {
             console.log(err);
         } else {
-            res.render("index", {books: books}); //remember, we want to render index and pass data
+            res.render("books/index", {books: books}); //remember, we want to render index and pass data
         }
     });
 }); 
 
 //NEW
 app.get("/books/new", function(req, res) {
-    res.render("new");
+    res.render("books/new");
 })
 
 //CREATE
@@ -59,7 +59,7 @@ app.get("/books/:id", function(req, res) {
             res.redirect("/books");
         } else {
             console.log(foundBook);
-            res.render("show", {book: foundBook});
+            res.render("books/show", {book: foundBook});
         }
     });
 }); 
@@ -70,7 +70,7 @@ app.get("/books/:id/edit", function(req, res) {
         if(err) {
             res.redirect("/books");
         } else {
-            res.render("edit", {book: foundBook});
+            res.render("books/edit", {book: foundBook});
         }
     });
 });
@@ -93,6 +93,39 @@ app.delete("/books/:id", function(req, res) {
             res.redirect("/books");
         } else {
             res.redirect("/books");
+        }
+    });
+});
+
+//================
+//REVIEW ROUTES
+//================
+//NEW
+app.get("/books/:id/reviews/new", function(req, res) {
+    Book.findById(req.params.id, function(err, book) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render("reviews/new", {book: book});
+        }
+    });
+});
+
+//CREATE
+app.post("/books/:id/reviews", function(req, res) {
+    Book.findById(req.params.id, function(err, book) {
+        if(err) {
+            console.log(err);
+        } else {
+            Review.create(req.body.review, function(err, review) {
+                if(err) {
+                    console.log(err);
+                } else {
+                    book.review.push(review);
+                    book.save();
+                    res.redirect("/books/" + book._id);
+                }
+            });
         }
     });
 });
