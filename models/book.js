@@ -5,6 +5,12 @@ var bookSchema = new mongoose.Schema ({
     author: String,
     image: String,
     description: String,
+    creator: {
+        id: {
+            type: mongoose.Schema.Types.ObjectId
+        },
+        username: String
+    },
     review: [
         {
             type: mongoose.Schema.Types.ObjectId,

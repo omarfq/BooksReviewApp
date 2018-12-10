@@ -26,6 +26,11 @@
             </div>
         </div>
     </div>
+    <% book.review.forEach(function(reviews) { %>
+        <p>
+            <strong><%= reviews.creator %></strong> - <%= reviews.text %>
+        </p>
+    <% }) %>
 </div>
 
 

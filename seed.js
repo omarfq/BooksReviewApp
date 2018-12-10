@@ -47,12 +47,12 @@ function seedDB() {
                         Review.create(
                             {
                                 text: "This book is absolutely fantastic!",
-                                creator: "Omar Flores"
-                            }, function(err, review) {
+                                creator: "Omar"
+                            }, function(err, reviews) {
                                 if(err) {
                                     console.log(err);
                                 } else {
-                                    book.review.push(review);
+                                    book.review.push(reviews);
                                     book.save();
                                     console.log("Created new review!");
                                 }
