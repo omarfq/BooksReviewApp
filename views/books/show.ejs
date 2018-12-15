@@ -29,11 +29,22 @@
             </div>
         </div>
     </div>
-    <% book.review.forEach(function(reviews) { %>
-        <p>
-            <strong><%= reviews.creator %></strong> - <%= reviews.text %>
-        </p>
-    <% }) %>
+    <div class="ui attached segment">
+        <div id="text-center"><h3>ALL REVIEWS</h3></div>
+        <% book.review.forEach(function(reviews) { %>
+        <div>
+            <hr>
+            <strong><%= reviews.creator %> - <%= reviews.title %></strong>
+            <span class="pull-right"><em> 10 days ago</em></span>
+            <br>
+            <p>
+                <%= reviews.text %>
+            </p>
+            <% }) %>
+        </div>
+       
+    </div>
+   
 </div>
 
 

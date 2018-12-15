@@ -9,6 +9,8 @@ var Book = require('./models/book');
 var Review = require('./models/review');
 var User = require('./models/user');
 var seedDB = require('./seed');
+var session = require('express-session');
+
 
 //APP CONFIG
 mongoose.connect("mongodb://localhost/BooksReviewApp", { useNewUrlParser: true });
@@ -18,6 +20,20 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(methodOverride("_method"));
 seedDB();
+
+//PASSPORT CONFIG
+app.use(session({
+    secret: "I love books!",
+    resave: false,
+    saveUninitialized: false,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 //RESTful ROUTES
 //DEFAULT
@@ -127,6 +143,29 @@ app.post("/books/:id/reviews", function(req, res) {
                 }
             });
         }
+    });
+});
+
+//===========
+//AUTH ROUTES
+//===========
+//show register form
+app.get("/register", function(req, res) {
+    res.render("register");
+});
+
+//handle sign up logic
+app.post("/register", function(req, res) {
+    var newUser = new User({username: req.body.username});
+    User.register(newUser, req.body.password, function(err,user) {
+        //console.log(newUser);
+        if(err) {
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, function() {
+            res.redirect("/books");
+        });
     });
 });
 

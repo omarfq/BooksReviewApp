@@ -14,3 +14,16 @@ img {
 #delete {
     display: inline;
 }
+
+#pull-right {
+    color: #fff;
+    text-align: right;
+}
+
+#pull-left {
+    text-align: left;
+}
+
+#text-center {
+    text-align: center;
+}

@@ -47,6 +47,7 @@ function seedDB() {
                         Review.create(
                             {
                                 text: "This book is absolutely fantastic!",
+                                title: "First Review!",
                                 creator: "Omar"
                             }, function(err, reviews) {
                                 if(err) {
