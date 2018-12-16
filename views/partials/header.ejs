@@ -16,12 +16,16 @@
 <body>
     <div class="ui fixed inverted menu">
         <div class="ui container">
-            <div class="header item"><i class="book icon"></i>Book Reviews</div>
-            <a class="header item" href="/books">All Books</a>
+        <div class="header item"><i class="book icon"></i>Book Reviews</div>
+        <a class="header item" href="/books">All Books</a>
             <a class="header item" href="/books/new">Add Book</a>
-            <a class="header item right" href="/login">Login</a>
-            <a class="header item" href="/register">Sign Up</a>
-            <a class="header item" href="/logout">Logout</a>
+            <% if(!currentUser) { %>
+                <a class="header item right" href="/login">Login</a>
+                <a class="header item" href="/register">Sign Up</a>
+            <% } else { %>
+                <a class="header item right" href="/logout">Logout</a>
+                <h4 class="header item"><span id="green">Signed in as <%= currentUser.username %></span></h4>
+            <% } %>
         </div>
     </div>
    
