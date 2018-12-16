@@ -169,6 +169,19 @@ app.post("/register", function(req, res) {
     });
 });
 
+//show login form
+app.get("/login", function(req, res){
+    res.render("login");
+});
+
+//handling login logic
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/books",
+        failureRedirect: "/login"
+    }), function(req, res) {
+});
+
 //Port listening
 app.listen(8080, function() {
     console.log("Server started on port 8080.");
