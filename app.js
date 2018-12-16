@@ -117,7 +117,7 @@ app.delete("/books/:id", function(req, res) {
 //REVIEW ROUTES
 //================
 //NEW
-app.get("/books/:id/reviews/new", function(req, res) {
+app.get("/books/:id/reviews/new", isLoggedIn, function(req, res) {
     Book.findById(req.params.id, function(err, book) {
         if(err) {
             console.log(err);
@@ -128,7 +128,7 @@ app.get("/books/:id/reviews/new", function(req, res) {
 });
 
 //CREATE
-app.post("/books/:id/reviews", function(req, res) {
+app.post("/books/:id/reviews", isLoggedIn, function(req, res) {
     Book.findById(req.params.id, function(err, book) {
         if(err) {
             console.log(err);
@@ -181,6 +181,19 @@ app.post("/login", passport.authenticate("local",
         failureRedirect: "/login"
     }), function(req, res) {
 });
+
+//logout route
+app.get("/logout", function(req, res) {
+    req.logout();
+    res.redirect("/books");
+});
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 //Port listening
 app.listen(8080, function() {
