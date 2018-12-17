@@ -35,7 +35,6 @@ router.post("/books", isLoggedIn, function(req, res) {
         if(err) {
             res.redirect("/books/new");
         } else {
-            console.log(newlyCreatedBook);
             res.redirect("/books");
         }
     });
