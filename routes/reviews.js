@@ -24,6 +24,11 @@ router.post("/books/:id/reviews", isLoggedIn, function(req, res) {
                 if(err) {
                     console.log(err);
                 } else {
+                    //add username and id to review
+                    review.creator.id = req.user._id;
+                    review.creator.username = req.user.username;
+                    //save review
+                    review.save();
                     book.review.push(review);
                     book.save();
                     res.redirect("/books/" + book._id);

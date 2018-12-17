@@ -16,6 +16,9 @@
                     <hr>
                     <div class="description">
                         <p><%- book.description %></p>
+                        <p>
+                            <em>Submitted by <strong><%= book.creator.username %></strong></em>
+                        </p>
                     </div>
                     <br>
                     <a class="ui blue basic button" href="/books/<%= book._id %>/edit">Edit Book</a>
@@ -34,7 +37,7 @@
         <% book.review.forEach(function(reviews) { %>
         <div>
             <hr>
-            <strong><%= reviews.creator %> - <%= reviews.title %></strong>
+            <strong><%= reviews.creator.username %> - <%= reviews.title %></strong>
             <span class="pull-right"><em> 10 days ago</em></span>
             <br>
             <p>

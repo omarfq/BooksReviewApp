@@ -16,18 +16,6 @@ var booksRoutes = require('./routes/books');
 var reviewsRoutes = require('./routes/reviews');
 var indexRoutes = require('./routes/index');
 
-//middleware
-app.use(function(req, res, next) {
-    res.locals.currentUser = req.user;
-    next();
-});
-
-//ROUTES CONFIG
-app.use(booksRoutes);
-app.use(reviewsRoutes);
-app.use(indexRoutes);
-
-
 //APP CONFIG
 mongoose.connect("mongodb://localhost/BooksReviewApp", { useNewUrlParser: true });
 app.use(express.static("public"));
@@ -35,7 +23,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(methodOverride("_method"));
-seedDB();
+//seedDB(); //seed the DB
 
 //PASSPORT CONFIG
 app.use(session({
@@ -49,6 +37,17 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+//middleware
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+//ROUTES CONFIG
+app.use(booksRoutes);
+app.use(reviewsRoutes);
+app.use(indexRoutes);
 
 //Port listening
 app.listen(8080, function() {

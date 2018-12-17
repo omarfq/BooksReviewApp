@@ -14,16 +14,28 @@ router.get("/books", function(req, res) {
 }); 
 
 //NEW
-router.get("/books/new", function(req, res) {
+router.get("/books/new", isLoggedIn, function(req, res) {
     res.render("books/new");
 })
 
 //CREATE
-router.post("/books", function(req, res) {
-    Book.create(req.body.book, function(err, newBook) {
+router.post("/books", isLoggedIn, function(req, res) {
+    //get data from form and add to books array
+    var title = req.body.title;
+    var author = req.body.author;
+    var image = req.body.image;
+    var desc = req.body.description;
+    var creator = {
+        id: req.user._id,
+        username: req.user.username
+    }
+    var newBook = {title: title, author: author, image: image, description: desc, creator: creator}
+    //create a new book and save to DB
+    Book.create(newBook, function(err, newlyCreatedBook) {
         if(err) {
             res.redirect("/books/new");
         } else {
+            console.log(newlyCreatedBook);
             res.redirect("/books");
         }
     });
@@ -73,5 +85,12 @@ router.delete("/books/:id", function(req, res) {
         }
     });
 });
+
+function isLoggedIn(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;
