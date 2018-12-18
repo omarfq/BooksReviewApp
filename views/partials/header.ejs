@@ -14,19 +14,42 @@
     <title>Books Review App</title>
 </head>
 <body>
-    <div class="ui fixed inverted menu">
-        <div class="ui container">
-        <div class="header item"><i class="book icon"></i>Book Reviews</div>
-        <a class="header item" href="/books">All Books</a>
-            <a class="header item" href="/books/new">Add Book</a>
-            <% if(!currentUser) { %>
-                <a class="header item right" href="/login">Login</a>
-                <a class="header item" href="/register">Sign Up</a>
-            <% } else { %>
-                <a class="header item right" href="/logout">Logout</a>
-                <h4 class="header item"><span id="green">Signed in as <%= currentUser.username %></span></h4>
-            <% } %>
+    <nav>
+        <div class="ui fixed inverted menu">
+            <div class="ui container">
+            <div class="header item"><i class="book icon"></i>Book Reviews</div>
+            <a class="header item" href="/books">All Books</a>
+                <a class="header item" href="/books/new">Add Book</a>
+                <% if(!currentUser) { %>
+                    <a class="header item right" href="/login">Login</a>
+                    <a class="header item" href="/register">Sign Up</a>
+                <% } else { %>
+                    <a class="header item right" href="/logout">Logout</a>
+                    <div class="header item"><span id="green">Signed in as <%= currentUser.username %></span></div>
+                <% } %>
+            </div>
         </div>
-    </div>
+    </nav>
+
+    <% if(error && error.length > 0) { %>
+        <div class="ui container">
+            <div class="ui negative message">
+                <i class="close icon"></i>
+                <div class="header">
+                    <%= error %>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <% if(success && success.length > 0) { %>
+        <div class="ui success message">
+            <i class="close icon"></i>
+            <div class="header">
+                <%= success %>
+            </div>
+        </div>
+    <% } %>
+
    
     

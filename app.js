@@ -24,6 +24,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.use(methodOverride("_method"));
+app.use(flash());
 //seedDB(); //seed the DB
 
 //PASSPORT CONFIG
@@ -38,6 +39,12 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+app.use(function(req, res, next) {
+    res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
+    next();
+});
 
 //middleware
 app.use(function(req, res, next) {

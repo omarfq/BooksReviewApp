@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var User = require('../models/user');
+var flash = require('connect-flash');
 
 
 //DEFAULT
@@ -24,6 +25,7 @@ router.post("/register", function(req, res) {
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function() {
+            req.flash("success", "Welcome to the BooksReviewApp! " + user.username);
             res.redirect("/books");
         });
     });
@@ -45,14 +47,8 @@ router.post("/login", passport.authenticate("local",
 //logout route
 router.get("/logout", function(req, res) {
     req.logout();
+    req.flash("success", "Logged out successfully!");
     res.redirect("/books");
 });
-
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;

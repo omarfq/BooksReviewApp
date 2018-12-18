@@ -1,5 +1,6 @@
 var Book = require('../models/book');
 var Review = require('../models/review');
+var flash = require('connect-flash');
 
 //all middelware goes inside this variable
 var middlewareObj = {};
@@ -10,7 +11,8 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
         Book.findById(req.params.id, function(err, foundBook) {
             if(err) {
                 console.log(err);
-                res.redirect("/login");
+                req.flash("error", "Oops! Book not found!");
+                res.redirect("back");
             } else {
                 //does user own the book?
                 if(foundBook.creator.id.equals(req.user._id)) {
@@ -18,6 +20,7 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
                     next();
                 } else {
                     //if not then redirect back
+                    req.flash("error", "You don't have permission to do that, please login.");
                     res.redirect("back");
                 }
             }
@@ -25,7 +28,8 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
     //if user is not logged in
     } else {
         //then redirect back
-        res.redirect("/login");
+        req.flash("error", "You need to be logged in to do that.")
+        res.redirect("back");
     }
 }
 
@@ -42,11 +46,13 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
                     //then the user can proceed to update/delete review
                     next();
                 } else {
+                    req.flash("error", "You don't have permission to do that, please login.");
                     res.redirect("back");
                 }
             }
         });
     } else {
+        req.flash("error", "You need to be logged in to do that.");
         res.redirect("back");
     }
 }
@@ -55,6 +61,7 @@ middlewareObj.isLoggedIn = function(req, res, next) {
     if(req.isAuthenticated()) {
         return next();
     }
+    req.flash("error", "You need to be logged in to do that.");
     res.redirect("/login");
 }
 
