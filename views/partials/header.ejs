@@ -32,9 +32,8 @@
     </nav>
 
     <% if(error && error.length > 0) { %>
-        <div class="ui container">
+        <div id="move-down" class="ui container">
             <div class="ui negative message">
-                <i class="close icon"></i>
                 <div class="header">
                     <%= error %>
                 </div>
@@ -43,12 +42,13 @@
     <% } %>
 
     <% if(success && success.length > 0) { %>
-        <div class="ui success message">
-            <i class="close icon"></i>
-            <div class="header">
-                <%= success %>
+        <div id="move-down" class="ui container">
+            <div class="ui success message">
+                <div class="header">
+                    <%= success %>
+                </div>
             </div>
-        </div>
+        </div> 
     <% } %>
 
    

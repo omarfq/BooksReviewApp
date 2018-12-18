@@ -4,7 +4,6 @@ var passport = require('passport');
 var User = require('../models/user');
 var flash = require('connect-flash');
 
-
 //DEFAULT
 router.get("/", function(req, res) {
     res.redirect("/books");
@@ -25,7 +24,7 @@ router.post("/register", function(req, res) {
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function() {
-            req.flash("success", "Welcome to the BooksReviewApp! " + user.username);
+            req.flash("success", "Welcome to the BooksReviewApp " + user.username + "!");
             res.redirect("/books");
         });
     });
@@ -42,6 +41,8 @@ router.post("/login", passport.authenticate("local",
         successRedirect: "/books",
         failureRedirect: "/login"
     }), function(req, res) {
+        req.flash("success", "Welcome back " + user.username + "!");
+        res.redirect("/books");
 });
 
 //logout route

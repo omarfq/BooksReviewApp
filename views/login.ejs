@@ -1,11 +1,25 @@
 <% include ./partials/header %>
 
-<h1 id="move-down">Login!</h1>
 
-<form action="/login" method="POST">
-    <input type="text" name="username" placeholder="username">
-    <input type="password" name="password" placeholder="password">
-    <button>Login</button>
-</form>
+
+<div id="move-down" class="ui centered grid">
+        <div class="six wide tablet eight wide computer column">
+            <h1 >Login!</h1>
+            <form class="ui form" action="/login" method="POST">
+                <div class="field">
+                    <div class="six wide field">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" placeholder="username">
+                    </div>
+                    <div class="six wide field">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" placeholder="password">
+                    </div>
+                    <button class="ui primary submit button">Login</button>
+                </div>
+            </form>
+        </div>
+</div>
+
 
 <% include ./partials/header %>

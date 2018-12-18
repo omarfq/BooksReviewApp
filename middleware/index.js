@@ -12,7 +12,7 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
             if(err) {
                 console.log(err);
                 req.flash("error", "Oops! Book not found!");
-                res.redirect("back");
+                res.render("back");
             } else {
                 //does user own the book?
                 if(foundBook.creator.id.equals(req.user._id)) {
@@ -39,7 +39,7 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
         Review.findById(req.params.review_id, function(err, foundReview) {
             if(err) {
                 console.log(err);
-                res.redirect("back");
+                res.render("back");
             } else {
                 //does user own the review?
                 if(foundReview.creator.id.equals(req.user._id)) {
