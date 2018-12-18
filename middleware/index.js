@@ -10,7 +10,7 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
         Book.findById(req.params.id, function(err, foundBook) {
             if(err) {
                 console.log(err);
-                res.redirect("back");
+                res.redirect("/login");
             } else {
                 //does user own the book?
                 if(foundBook.creator.id.equals(req.user._id)) {
@@ -25,14 +25,14 @@ middlewareObj.checkBookOwnership = function(req, res, next) {
     //if user is not logged in
     } else {
         //then redirect back
-        res.redirect("back");
+        res.redirect("/login");
     }
 }
 
 middlewareObj.checkReviewOwnership = function(req, res, next) {
     if(req.isAuthenticated()) {
         //if user is logged in
-        Review.findById(req.params.review._id, function(err, foundReview) {
+        Review.findById(req.params.review_id, function(err, foundReview) {
             if(err) {
                 console.log(err);
                 res.redirect("back");
@@ -45,7 +45,7 @@ middlewareObj.checkReviewOwnership = function(req, res, next) {
                     res.redirect("back");
                 }
             }
-        })
+        });
     } else {
         res.redirect("back");
     }

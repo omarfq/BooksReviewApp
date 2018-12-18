@@ -45,7 +45,7 @@ app.use(function(req, res, next) {
 });
 
 //ROUTES CONFIG
-app.use(booksRoutes);
+app.use("/books", booksRoutes);
 app.use(reviewsRoutes);
 app.use(indexRoutes);
 

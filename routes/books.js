@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var Book = require('../models/book');
+var middleware = require('../middleware/index');
 
 //INDEX
-router.get("/books", function(req, res) {
+router.get("/", function(req, res) {
     Book.find({}, function(err, books) {
         if(err) {
             console.log(err);
@@ -14,12 +15,12 @@ router.get("/books", function(req, res) {
 }); 
 
 //NEW
-router.get("/books/new", isLoggedIn, function(req, res) {
+router.get("/new", middleware.isLoggedIn, function(req, res) {
     res.render("books/new");
 })
 
 //CREATE
-router.post("/books", isLoggedIn, function(req, res) {
+router.post("/", middleware.isLoggedIn, function(req, res) {
     //get data from form and add to books array
     var title = req.body.title;
     var author = req.body.author;
@@ -41,7 +42,7 @@ router.post("/books", isLoggedIn, function(req, res) {
 });
 
 //SHOW
-router.get("/books/:id", function(req, res) {
+router.get("/:id", function(req, res) {
     Book.findById(req.params.id).populate("review").exec(function(err, foundBook) {
         if(err) {
             res.redirect("/books");
@@ -53,7 +54,7 @@ router.get("/books/:id", function(req, res) {
 }); 
 
 //EDIT
-router.get("/books/:id/edit", function(req, res) {
+router.get("/:id/edit", middleware.checkBookOwnership,function(req, res) {
     Book.findById(req.params.id, function(err, foundBook) {
         if(err) {
             res.redirect("/books");
@@ -64,7 +65,7 @@ router.get("/books/:id/edit", function(req, res) {
 });
 
 //UPDATE
-router.put("/books/:id", function(req, res) {
+router.put("/:id", middleware.checkBookOwnership, function(req, res) {
     Book.findByIdAndUpdate(req.params.id, req.body.book, function(err, updatedBook) {
         if(err) {
             res.redirect("/books");
@@ -75,7 +76,7 @@ router.put("/books/:id", function(req, res) {
 });
 
 //DELETE
-router.delete("/books/:id", function(req, res) {
+router.delete("/:id", middleware.checkBookOwnership, function(req, res) {
     Book.findByIdAndRemove(req.params.id, function(err) {
         if(err) {
             res.redirect("/books");
@@ -84,12 +85,5 @@ router.delete("/books/:id", function(req, res) {
         }
     });
 });
-
-function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;

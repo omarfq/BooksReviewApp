@@ -1,0 +1,21 @@
+<% include ../partials/header %>
+
+    <div class="ui main text container segment">
+    <div class="ui huge header">Edit Review</div>
+        <form action="/books/<%= book_id %>/reviews/<%= review._id %>?_method=PUT" method="POST" class="ui form">
+            <div class="field">
+                <label>Title of Review</label>
+                <input type="text" name="review[title]" value="<%= review.title %>">
+            </div>
+            <div class="field">
+                <label>Your Review</label>
+                <textarea name="review[text]"><%= review.text %></textarea>
+            </div>
+            <input class="ui button" type="submit">
+        </form>
+    </div>
+
+
+
+
+<% include ../partials/footer %>

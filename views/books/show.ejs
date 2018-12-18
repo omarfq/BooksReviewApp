@@ -43,6 +43,10 @@
             <p>
                 <%= reviews.text %>
             </p>
+            <a class="ui blue basic button" href="/books/<%= book._id %>/reviews/<%= reviews._id %>/edit">Edit Review</a>
+            <form id="delete" action="/books/<%= book._id %>/reviews/<%= reviews._id %>?_method=DELETE" method="POST">
+                <button class="ui red basic button">Delete Review</button>
+            </form>
             <% }) %>
         </div>
        
