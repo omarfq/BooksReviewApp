@@ -10,6 +10,7 @@ var Review = require('./models/review');
 var User = require('./models/user');
 var seedDB = require('./seed');
 var session = require('express-session');
+var flash = require('connect-flash');
 
 //ROUTES
 var booksRoutes = require('./routes/books');
