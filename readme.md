@@ -20,8 +20,6 @@ Open another Terminal and run the command below to start MongoDB (if you start t
 ./mongod
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
-
 ## Deployment
 
 This project has not been Deployed yet.
