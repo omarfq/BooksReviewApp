@@ -1,6 +1,6 @@
 # Book Reviews App
 
-This app lets you create an account to submit your custom made reviews of your favorite books.
+This app lets you create an account to submit your custom made reviews of your favorite books. This is a very basic CRUD implementation.
 
 ## Getting Started
 
