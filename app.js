@@ -1,4 +1,6 @@
-var dotenv = require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -9,10 +11,8 @@ var LocalStrategy = require('passport-local');
 var Book = require('./models/book');
 var Review = require('./models/review');
 var User = require('./models/user');
-var seedDB = require('./seed');
 var session = require('express-session');
 var flash = require('connect-flash');
-var config = require('./config');
 
 //ROUTES
 var booksRoutes = require('./routes/books');
@@ -62,7 +62,7 @@ app.use(indexRoutes);
 //Port listening
 const port = process.env.PORT || 5000;
 
-mongoose.connect(`mongodb+srv://${config.MONGO_USER}:${config.MONGO_PW}@cluster0-sxcpj.mongodb.net/test`, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     .then(() => {
         app.listen(port, () => {
             console.log(`Server started on port ${port}`);

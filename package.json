@@ -4,8 +4,8 @@
   "description": "Simple review app",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "start": "cross-env NODE_ENV=production node app.js"
   },
   "author": "Omar Flores",
   "license": "ISC",
