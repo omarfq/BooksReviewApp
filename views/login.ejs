@@ -1,25 +1,24 @@
 <% include ./partials/header %>
 
-
-
-<div id="move-down" class="ui centered grid">
-        <div class="six wide tablet eight wide computer column">
-            <h1 >Login!</h1>
-            <form class="ui form" action="/login" method="POST">
-                <div class="field">
-                    <div class="six wide field">
-                            <label for="username">Username</label>
-                            <input type="text" name="username" placeholder="username">
-                    </div>
-                    <div class="six wide field">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" placeholder="password">
-                    </div>
-                    <button class="ui primary submit button">Login</button>
+<div id="move-down" class="ui one column stackable center aligned page grid">
+    <div class="column twelve wide">
+        <h1>Log In</h1>
+        <br>
+        <form class="ui form" action="/login" method="POST">
+            <div class="ui two column centered grid">
+                <div class="six wide field">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" placeholder="username">
                 </div>
-            </form>
-        </div>
+                <div class="six wide field">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" placeholder="password">
+                </div>
+            </div>
+            <br><br>
+            <button class="ui primary submit button">Log In</button>
+        </form>
+    </div>
 </div>
-
 
 <% include ./partials/footer %>
